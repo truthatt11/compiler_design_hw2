@@ -32,9 +32,9 @@ Float_constant
 String_constant
 comment
 */
-Float_contant   {digit}*"."{digit}+
+Float_constant   {digit}*"."{digit}+
 String_constant   \".*\"|'.*'
-comment  /\*.*\*/ 
+comment  "/*".*"*/"
 
 OP_or   "||"
 OP_and  "&&"
@@ -73,9 +73,13 @@ error    .
 
 %%
 
+{comment}       { printf("%s\n", yytext); }
 {WS}            {}
 {RWInt}         {/* return INT; */ }
 {RWFloat}       {/* return FLOAT; */}
+{Int_constant}  {}
+{Float_constant}  {}
+{String_constant}  {}
 {ID}            { 
 			ptr = lookup(yytext);
 			if (ptr == NULL)
@@ -88,6 +92,8 @@ error    .
 {OP_or}         /* return OP_OR; */
 {DL_lparen}     /* return MK_LPAREN; */
 {DL_rparen}     /* return MK_RPAREN; */
+{DL_lbrack}     /* return MK_LBRACK; */
+{DL_rbrack}     /* return MK_RBRACK; */
 {DL_lbrace}     /* return MK_LBRACE; */
 {DL_rbrace}     /* return MK_RBRACE; */
 {DL_comma}      {}
