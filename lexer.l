@@ -34,7 +34,7 @@ comment
 */
 Float_constant   {digit}*"."{digit}+
 String_constant   \".*\"|'.*'
-comment  "/*".*"*/"
+comment "/*"([^*]|\*+[^*/])*\*+"/" 
 
 OP_or   "||"
 OP_and  "&&"
@@ -89,6 +89,18 @@ error    .
 		}
 
 {OP_assign}     /* return OP_ASSIGN; */ 
+{OP_plus}     /* return OP_ASSIGN; */ 
+{OP_minus}     /* return OP_ASSIGN; */ 
+{OP_div}     /* return OP_ASSIGN; */ 
+{OP_mul}     /* return OP_ASSIGN; */ 
+{OP_gt}     /* return OP_ASSIGN; */ 
+{OP_sml}     /* return OP_ASSIGN; */ 
+{OP_smle}     /* return OP_ASSIGN; */ 
+{OP_gte}     /* return OP_ASSIGN; */ 
+{OP_eq}     /* return OP_ASSIGN; */ 
+{OP_ne}     /* return OP_ASSIGN; */ 
+{OP_not}     /* return OP_ASSIGN; */ 
+{OP_and}     /* return OP_ASSIGN; */ 
 {OP_or}         /* return OP_OR; */
 {DL_lparen}     /* return MK_LPAREN; */
 {DL_rparen}     /* return MK_RPAREN; */
@@ -99,7 +111,7 @@ error    .
 {DL_comma}      {}
 {DL_semicol}    {}
 {newline}       linenumber += 1;
-{error}         printf("ERR \n");/* return ERROR; */
+{error}         printf("ERR %s\n", yytext);/* return ERROR; */
 
 
 %%
