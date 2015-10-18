@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "header.h" 
 int linenumber;
+extern int num_id;
 symtab * lookup();
 symtab * ptr;
 void     insertID();
@@ -118,7 +119,8 @@ error    .
 
 main(int argc, char **argv)
 {
- argc--; ++argv;
+   num_id=0;
+   argc--; ++argv;
    if (argc > 0)
       yyin = fopen(argv[0], "r");
    else
