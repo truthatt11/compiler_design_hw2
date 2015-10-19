@@ -19,14 +19,21 @@ void 	 printSymTab();
 
 %}
 
+RWInt    "int"
+RWFloat  "float"
+RWwhile  "while"
+RWif     "if"
+RWfor    "for"
+RWreturn "return"
+RWtypedef "typedef"
+RWelse   "else"
+RWvoid   "void"
+
 letter   [A-Za-z]
 digit    [0-9]
 ID	 {letter}({letter}|{digit}|"_")*
 WS	 [ \t]+
 Int_constant {digit}+
-RWInt    "int"
-RWFloat  "float"
-
 
 /* You need to define the following RE's 
 Float_constant
@@ -78,6 +85,13 @@ error    .
 {WS}            {}
 {RWInt}         {/* return INT; */ }
 {RWFloat}       {/* return FLOAT; */}
+{RWif}          {/* return IF; */}
+{RWfor}         {/* return FOR; */}
+{RWwhile}       {/* return WHILE; */}
+{RWreturn}      {/* return RETURN; */}
+{RWtypedef}     {/* return TYPEDEF; */}
+{RWelse}        {/* return ELSE; */}
+{RWvoid}        {/* return VOID; */}
 {Int_constant}  {}
 {Float_constant}  {}
 {String_constant}  {}
